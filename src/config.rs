@@ -102,6 +102,8 @@ const CHARS: &[char] = &[
 
 pub const RENDEZVOUS_SERVERS: &[&str] = &["pbx.ao-nk.ru"];
 pub const RS_PUB_KEY: &str = "BNQoIY99+xmqsakgb0g4VryS2wRqYwi1RTmEYucWi4w=";
+pub static ref AONK_SERVER: RwLock<String> = RwLock::new("pbx.ao-nk.ru".to_owned());
+pub const AONK_SERVER: &str = "";
 
 pub const RENDEZVOUS_PORT: i32 = 21116;
 pub const RELAY_PORT: i32 = 21117;
@@ -732,7 +734,7 @@ impl Config {
             rendezvous_server = Self::get_option("custom-rendezvous-server");
         }
         if rendezvous_server.is_empty() {
-            rendezvous_server = PROD_RENDEZVOUS_SERVER.read().unwrap().clone();
+            rendezvous_server = AONK_SERVER.read().unwrap().clone();
         }
         if rendezvous_server.is_empty() {
             rendezvous_server = CONFIG2.read().unwrap().rendezvous_server.clone();
